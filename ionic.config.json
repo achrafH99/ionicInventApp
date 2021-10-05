@@ -1,5 +1,7 @@
 {
   "name": "exo-AchrafHANINI",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,17 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Calendrier
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
-</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="showHideForm()">
+    <ion-icon *ngIf="!showAddEvent" name="add"></ion-icon>
+    <ion-icon *ngIf="showAddEvent" name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<div *ngIf="showAddEvent" class="ion-padding">
+  <ion-item>
+    <ion-label><b>Titre:</b></ion-label>
+    <ion-input type="text" placeholder="Titre" [(ngModel)]="newEvent.title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Description:</b></ion-label>
+    <ion-input type="text" placeholder="Description" [(ngModel)]="newEvent.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Utilisateurs:</b></ion-label>
+    <select [(ngModel)]="newEvent.utilisateur">
+      <option [ngValue]="null" disabled>Select Country</option>
+      <option *ngFor="let user of getUtilisateurs()" [ngValue]="user.email">{{user.name}}</option>
+    </select>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Début</b></ion-label>
+    <ion-datetime doneText="OK" cancelText="Annuler" i18n displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm"
+      [(ngModel)]="newEvent.startTime" [min]="minDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label><b>Fin</b></ion-label>
+    <ion-datetime doneText="OK" cancelText="Annuler" displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm"
+      [(ngModel)]="newEvent.endTime" [min]="minDate"></ion-datetime>
+  </ion-item>
+  <ion-button color="warning" expand="block" (click)="addEvent()">Ajouter</ion-button>
+</div>
+
+<calendar *ngIf="!showAddEvent" id="myCalendar" locale="fr-FR" [eventSource]="allEvents" calendarMode="month"
+  startHour="6" endHour="20" step="30" startingDayWeek="1" [currentDate]="currentDate"
+  (onTitleChanged)="onViewTitleChanged($event)">
+</calendar>

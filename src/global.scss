@@ -24,3 +24,19 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.monthview-primary-with-event { background-color: #FF5722!important; }
+.monthview-selected { background-color: #FF9800 !important; }
+.monthview { color: red !important;}
+.closeModal{
+  position:absolute;
+  top:0;
+  right:0;
+}
+.formUser{
+  position: fixed;
+  margin-top: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+input[type="submit"]:disabled { background: #ccc; }
+

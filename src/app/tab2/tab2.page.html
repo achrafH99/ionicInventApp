@@ -1,17 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title> Participants </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-content"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="newUser()">
+    <ion-icon name="person-add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+  <ion-col size="12" *ngFor="let item of data">
+    <!-- <Input *ngIf="" -->
+    <ion-card>
+      <ion-card-title> Nom : {{item.form.value.name}}</ion-card-title>
+      <ion-card-title> Email : {{item.form.value.email}}</ion-card-title>
+      <ion-button (click)="deleteUtilisateur(item)"></ion-button>
+        <ion-icon color="danger" name="close-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="primary" (click)="toggleEdit(item)">{{ item.edit === true ? 'Annuler' : 'Modifier' }}
+      </ion-button>
+      <form *ngIf="item.edit" [formGroup]="form" (submit)="edit(item.id)">
+        <p id="name" style="color: white">
+          nom :
+          <input type="text" class="form-control" name="name" [formControl]="item.form.controls['name']" />
+        </p>
+        <p id="email" style="color: white">
+          email :
+          <input type="text" class="form-control" name="email" [formControl]="item.form.controls['email']" />
+        </p>
+        <ion-button color="success" (click)="edit(item)"> Save </ion-button>
+      </form>
+    </ion-card>
+  </ion-col>
   <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>

@@ -1,0 +1,12 @@
+<div class="closeModal">
+  <button (click)="onSubmit()">
+    <ion-icon size="large" name="close-circle-outline"></ion-icon>
+  </button>
+</div>
+
+<form (submit)="onSubmit()" class="formUser">
+  <p>nom : </p> <input [(ngModel)]="name" name="name" required>
+  <p>email : </p><input type="email" [(ngModel)]="email" name="email" required>
+  <br><br>
+  <input [disabled]="!name || !email" type="submit" value="valider">
+</form>

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { PhotoService } from '../services/photo.service';
+
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +10,12 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(public photoService: PhotoService) { }
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
+  removeItemFromService(value) {
+    this.photoService.removeItem(value);
+  }
 
 }
